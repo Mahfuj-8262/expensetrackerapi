@@ -167,3 +167,4 @@ C:\Users\mafu5\Documents\dotNET\ExpenseTracker\obj\Debug\net8.0\refint\ExpenseTr
 C:\Users\mafu5\Documents\dotNET\ExpenseTracker\obj\Debug\net8.0\ExpenseTracker.pdb
 C:\Users\mafu5\Documents\dotNET\ExpenseTracker\obj\Debug\net8.0\ExpenseTracker.genruntimeconfig.cache
 C:\Users\mafu5\Documents\dotNET\ExpenseTracker\obj\Debug\net8.0\ref\ExpenseTracker.dll
+C:\Users\mafu5\Documents\dotNET\ExpenseTracker\obj\Debug\net8.0\ExpenseTracker.sourcelink.json

@@ -72,9 +72,9 @@ namespace ExpenseTracker.Controllers
         }
 
         [HttpPost("refresh")]
-        public async Task<ActionResult<AuthResponseDto>> Refresh([FromBody] string refreshToken)
+        public async Task<ActionResult<AuthResponseDto>> Refresh([FromBody] RefreshDto dto)
         {
-            var hash = HashToken(refreshToken);
+            var hash = HashToken(dto.refreshToken);
 
             var user = await _context.Users.FirstOrDefaultAsync(u => u.RefreshTokenHash == hash);
             if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow) return Unauthorized(new { error = "Invalid refresh token!" });

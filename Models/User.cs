@@ -25,6 +25,11 @@ namespace ExpenseTracker.Models
         public required string Password { get; set; }
     }
 
+    public class RefreshDto
+    {
+        public required string refreshToken { get; set; }
+    }
+
     public class AuthResponseDto
     {
         public string RefreshToken { get; set; } = string.Empty;
