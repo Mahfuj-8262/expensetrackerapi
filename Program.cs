@@ -20,7 +20,7 @@ var secretKey = jwtConfig["Key"] ?? throw new InvalidOperationException("JWT Key
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
-        policy => policy.WithOrigins("https://blue-flower-0ee107200.1.azurestaticapps.net") 
+        policy => policy.WithOrigins("https://victorious-flower-0ec531a00.1.azurestaticapps.net") 
                         .AllowAnyHeader()
                         .AllowAnyMethod());
 });
