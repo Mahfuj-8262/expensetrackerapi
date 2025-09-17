@@ -3,19 +3,27 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add controllers
 builder.Services.AddControllers();
 
+var keyVaultName = Environment.GetEnvironmentVariable("KEY_VAULT_NAME");
+var kvUri = new Uri($"https://{keyVaultName}.vault.azure.net/");
+builder.Configuration.AddAzureKeyVault(kvUri, new DefaultAzureCredential());
+string dbConnection = builder.Configuration["ExpenseTrackerSecretDefaultConnectionString"]!;
+if (string.IsNullOrEmpty(dbConnection)) throw new Exception("DB connection string not found in Key Vault!");
+
 // EF Core config
 builder.Services.AddDbContext<AppDbContext>(opts =>
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    opts.UseSqlServer(dbConnection));
 
-// JWT setup
 var jwtConfig = builder.Configuration.GetSection("Jwt");
-var secretKey = jwtConfig["Key"] ?? throw new InvalidOperationException("JWT Key is missing!");
+string secretKey = builder.Configuration["ExpenseTrackerJwtSecretKey"]!;
+if (string.IsNullOrEmpty(secretKey)) throw new Exception("JWT secret not found in Key Vault!");
 
 builder.Services.AddCors(options =>
 {
